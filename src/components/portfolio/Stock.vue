@@ -10,7 +10,7 @@
       </div>
       <div class="card-body d-flex justify-content-between">
         <input class="pl-2" type="number" placeholder="Quantity" v-model="quantity">
-        <button class="btn btn-danger" @click="sellStock()" :disabled="isSufficeQuantity || quantity <= 0">Sell</button>
+        <button class="btn btn-danger" @click="sellStock()" :disabled="!isSufficeQuantity && quantity <= 0">Sell</button>
       </div>
     </div>
   </div>
@@ -27,8 +27,8 @@
       }
     },
     computed: {
-      isSufficeQuantity() {
-        return this.quantity < this.stock.quantity
+      isSufficeQuantity () {
+        return this.stock.quantity > +this.quantity
       }
     },
     methods: {

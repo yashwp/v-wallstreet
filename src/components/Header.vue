@@ -19,13 +19,14 @@
           </li>
         </ul>
       </div>
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center position-relative">
+        <div class="cursor-pointer mr-2" @click="endDay">End Day</div>
         <strong>Funds: {{funds | currency}}</strong>
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-           aria-expanded="false">
+           aria-expanded="false" @click="isDropdownOpen = !isDropdownOpen">
           Save & Load
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" :class="{'show' : isDropdownOpen}" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Save Data</a>
           <a class="dropdown-item" href="#">Load Data</a>
         </div>
@@ -36,10 +37,23 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
+    data() {
+      return {
+        isDropdownOpen: false
+      }
+    },
     computed: {
       funds () {
         return this.$store.getters.funds
+      }
+    },
+    methods: {
+      ...mapActions(['randomizeStocks']),
+      endDay () {
+        this.randomizeStocks()
       }
     }
   }

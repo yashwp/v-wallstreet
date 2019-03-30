@@ -9,7 +9,7 @@
       </div>
       <div class="card-body d-flex justify-content-between">
         <input class="pl-2" type="number" placeholder="Quantity" v-model="quantity">
-        <button class="btn btn-success" @click="buyStock()" :disabled="isFundsSuffice || quantity <= 0">{{isFundsSuffice ? 'Insuffice' : 'Buy'}}</button>
+        <button class="btn btn-success" @click="buyStock()" :disabled="!isFundsSuffice || quantity <= 0">{{isFundsSuffice ? 'Buy' : 'Insuffice'}}</button>
       </div>
     </div>
   </div>
