@@ -12,6 +12,10 @@ const mutations = {
     state.stocks.forEach(stock => {
       stock.price = Math.round(Math.random() * 100)
     })
+  },
+  'SET_PORTFOLIO' (state, portfolio) {
+    state.funds = portfolio.funds
+    state.stocks = portfolio.portfolio ? portfolio.portfolio : []
   }
 }
 

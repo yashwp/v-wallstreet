@@ -27,8 +27,8 @@
           Save & Load
         </a>
         <div class="dropdown-menu" :class="{'show' : isDropdownOpen}" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Save Data</a>
-          <a class="dropdown-item" href="#">Load Data</a>
+          <a class="dropdown-item" href="#" @click="saveData()">Save Data</a>
+          <a class="dropdown-item" href="#" @click="fetchData()">Load Data</a>
         </div>
       </div>
 
@@ -40,7 +40,7 @@
   import { mapActions } from 'vuex'
 
   export default {
-    data() {
+    data () {
       return {
         isDropdownOpen: false
       }
@@ -51,9 +51,21 @@
       }
     },
     methods: {
-      ...mapActions(['randomizeStocks']),
+      ...mapActions(['randomizeStocks', 'loadData']),
       endDay () {
         this.randomizeStocks()
+      },
+      saveData () {
+        const data = {
+          funds: this.$store.getters.funds,
+          portfolio: this.$store.getters.stockPortfolio,
+          stocks: this.$store.getters.stocks
+        }
+
+        this.$http.put('data.json', data)
+      },
+      fetchData () {
+        this.loadData()
       }
     }
   }
